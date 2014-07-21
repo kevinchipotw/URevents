@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>{{ event.title }}</h1>
+<h3>Posted on: {{ event.pub_date }}</h3>
+<h2>Event date: {{ event.event_date }}</h2>
+<hr>
+
+<p>{{ event.body }}</p>
+
+<hr>
+
+{% endblock %}
+
