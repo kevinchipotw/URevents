@@ -9,7 +9,7 @@ from forms import EventForm
 from django.core.context_processors import csrf
 
 # Create your views here.
-hiiiiii
+
 
 
 def home(request):
