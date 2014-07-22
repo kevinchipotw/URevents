@@ -8,44 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Category'
-        db.create_table(u'event_category', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal(u'event', ['Category'])
-
-        # Adding model 'Event'
-        db.create_table(u'event_event', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(default=orm['auth.User'], to=orm['auth.User'])),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('event_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-        ))
-        db.send_create_signal(u'event', ['Event'])
-
-        # Adding M2M table for field category on 'Event'
-        m2m_table_name = db.shorten_name(u'event_event_category')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('event', models.ForeignKey(orm[u'event.event'], null=False)),
-            ('category', models.ForeignKey(orm[u'event.category'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['event_id', 'category_id'])
+        # Adding field 'Event.test'
+        db.add_column(u'event_event', 'test',
+                      self.gf('django.db.models.fields.BooleanField')(default=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Category'
-        db.delete_table(u'event_category')
-
-        # Deleting model 'Event'
-        db.delete_table(u'event_event')
-
-        # Removing M2M table for field category on 'Event'
-        db.delete_table(db.shorten_name(u'event_event_category'))
+        # Deleting field 'Event.test'
+        db.delete_column(u'event_event', 'test')
 
 
     models = {
@@ -99,6 +70,7 @@ class Migration(SchemaMigration):
             'event_date': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'test': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }
     }

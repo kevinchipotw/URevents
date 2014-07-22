@@ -1,12 +1,7 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-
-
-    <h1 class="page-header">
-        UR EVENTS</br>
-        <small>Find Out What's going on in U of R!</small>
-    </h1>
 
 
     <!-- First Blog Post -->
@@ -21,6 +16,21 @@
     </p>
     <p><span class="glyphicon glyphicon-time"></span> Posted on {{ event.pub_date }}</p>
 
+    <p>Category: 
+        {% for category in event.category.all %}
+            {{ category }} 
+        {% endfor %}
+    </p>
+
+    <p>Location: {{ event.location }}</p>
+
+    <p>Co-Sponsored by: 
+        {% for co_sponsored in event.co_sponsored.all %}
+            {{ co_sponsored }}
+ 
+        {% endfor %}
+    </p>
+
     <p>{{ event.body|truncatewords:"50" }}</p>
     <a class="btn btn-primary" href="/event{{ event.id }}/">Read More &raquo;</a>
 
@@ -28,6 +38,6 @@
 
     {% endfor %}
 
-
 {% endblock %}
+
 

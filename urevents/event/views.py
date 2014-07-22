@@ -5,7 +5,7 @@ from django.shortcuts import render, render_to_response, RequestContext, HttpRes
 from django.utils import timezone
 from .models import Event
 from forms import EventForm
-
+from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 
 # Create your views here.
@@ -26,4 +26,21 @@ def event(request, event_id= 1):
 
 def create(request):
 	if request.POST: 
-		form = Event
+		form = EventForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+
+			return HttpResponseRedirect(reverse('event.views.home'))
+
+	else:
+		form = EventForm()
+
+	args = {}
+	args.update(csrf(request))
+
+	args['form'] = form
+
+	return render_to_response('create_event.html', args)
+
+
+

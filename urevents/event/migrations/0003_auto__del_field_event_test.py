@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Event.event_date'
-        db.add_column(u'event_event', 'event_date',
-                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 7, 21, 0, 0)),
-                      keep_default=False)
+        # Deleting field 'Event.test'
+        db.delete_column(u'event_event', 'test')
 
 
     def backwards(self, orm):
-        # Deleting field 'Event.event_date'
-        db.delete_column(u'event_event', 'event_date')
+        # Adding field 'Event.test'
+        db.add_column(u'event_event', 'test',
+                      self.gf('django.db.models.fields.BooleanField')(default=True),
+                      keep_default=False)
 
 
     models = {
@@ -56,10 +56,17 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'event.category': {
+            'Meta': {'ordering': "['title']", 'object_name': 'Category'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '250'})
+        },
         u'event.event': {
             'Meta': {'object_name': 'Event'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'default': u"orm['auth.User']", 'to': u"orm['auth.User']"}),
             'body': ('django.db.models.fields.TextField', [], {}),
+            'category': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['event.Category']", 'symmetrical': 'False'}),
             'event_date': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),

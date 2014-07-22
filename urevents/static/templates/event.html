@@ -4,8 +4,25 @@
 {% block content %}
 
 <h1>{{ event.title }}</h1>
+
 <h3>Posted on: {{ event.pub_date }}</h3>
+
 <h2>Event date: {{ event.event_date }}</h2>
+
+<p>Category: 
+	{% for category in event.category.all %}
+		{{ category }}  
+	{% endfor %}
+</p>
+
+<p>Location: {{ event.location }}</p>
+
+<p>Co-Sponsored by: 
+	{% for co_sponsored in event.co_sponsored.all %}
+		{{ co_sponsored }}  
+	{% endfor %}
+</p>
+
 <hr>
 
 <p>{{ event.body }}</p>

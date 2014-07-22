@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 	url(r'^event(?P<event_id>\d+)/$','event.views.event', name = 'event'), 
 	url(r'^create/$', 'event.views.create', name = 'create'), 
 
+
 	url(r'^admin/', include(admin.site.urls)),
 
 
