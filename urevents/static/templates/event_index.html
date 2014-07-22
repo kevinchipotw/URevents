@@ -3,41 +3,47 @@
 
 {% block content %}
 
+{% for event in events %}
+<div class="panel-group" id="accordion">
+  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ event.id }}">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          {{ event.title }}
+          <br>
+          On: {{ event.event_date }} &nbsp;&nbsp; By {{ event.author }}
+          <span style="float:right;">Posted: {{ event.pub_date }}</span>
+        </h4>
+      </div>
+    </div>
+  </a>
 
-    <!-- First Blog Post -->
-    {% for event in events %}
-
-    <h2>
-        <a href="/event{{ event.id }}/">{{ event.title }}</a>&nbsp;&nbsp; 
-        On: {{ event.event_date }}
-    </h2>
-    <p class="lead">
-        by {{ event.author }}
-    </p>
-    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ event.pub_date }}</p>
-
-    <p>Category: 
-        {% for category in event.category.all %}
+  <div class="panel panel-default">
+    <div id="collapse{{ event.id }}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <p>Category: 
+          {% for category in event.category.all %}
             {{ category }} 
-        {% endfor %}
-    </p>
+          {% endfor %}
+        </p>
 
-    <p>Location: {{ event.location }}</p>
+        <p>Location: {{ event.location }}</p>
 
-    <p>Co-Sponsored by: 
-        {% for co_sponsored in event.co_sponsored.all %}
+        <p>Co-Sponsored by: 
+          {% for co_sponsored in event.co_sponsored.all %}
             {{ co_sponsored }}
- 
-        {% endfor %}
-    </p>
+   
+          {% endfor %}
+        </p>
 
-    <p>{{ event.body|truncatewords:"50" }}</p>
-    <a class="btn btn-primary" href="/event{{ event.id }}/">Read More &raquo;</a>
+        <p>{{ event.body|truncatewords:"50" }}</p>
+        <a class="btn btn-primary" href="/event{{ event.id }}/">Read More &raquo;</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <hr>
-
-    {% endfor %}
+{% endfor %}
 
 {% endblock %}
-
 
