@@ -643,7 +643,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   // COLLAPSE DATA-API
   // =================
 
-  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+  $(document).on('click.collapse.data-api', '[data-toggle="collapse"]', function (e) {
     var href
     var $this   = $(this)
     var target  = $this.attr('data-target')
@@ -659,9 +659,12 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       if ($parent) $parent.find('[data-toggle="collapse"][data-parent="' + parent + '"]').not($this).addClass('collapsed')
       $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
     }
-
     Plugin.call($target, option)
+
+
   })
+
+
 
 }(jQuery);
 
