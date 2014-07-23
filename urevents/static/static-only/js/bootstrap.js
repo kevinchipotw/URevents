@@ -643,38 +643,15 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   // COLLAPSE DATA-API
   // =================
 
-  $(document).on('mouseenter.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+  $(document).on('click.collapse.data-api', '[data-toggle="collapse"]', function (e) {
     var href
     var $this   = $(this)
     var target  = $this.attr('data-target')
-
-    var $target = $(target)
-    var data    = $target.data('collapse')
-    var option  = data ? 'show' : $this.data()
-    $(target).collapse();
-    $(target).show('true');
-
-    var parent  = $this.attr('data-parent')
-    var $parent = parent && $(parent)
-
-    if (!data || !data.transitioning) {
-      if ($parent) $parent.find('[data-toggle="collapse"][data-parent="' + parent + '"]').not($this).addClass('collapsed')
-      $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
-    }
-    Plugin.call($target, option)
-
-
-  })
-
-  $(document).on('mouseleave.collapse.data-api', '[data-toggle="collapse"]', function (e) {
-    var href
-    var $this   = $(this)
-    var target  = $this.attr('data-target')
-
+        || e.preventDefault()
+        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
     var $target = $(target)
     var data    = $target.data('bs.collapse')
-    var option  = data ? 'hide' : $this.data()
-    $(target).hide('true');
+    var option  = data ? 'toggle' : $this.data()
     var parent  = $this.attr('data-parent')
     var $parent = parent && $(parent)
 
@@ -686,6 +663,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
 
 
   })
+
+
 
 }(jQuery);
 

@@ -1,0 +1,18 @@
+<!-- Search -->
+<div class="well">
+  <h4>Blog Search</h4>
+  <div class="input-group">
+    <form method = "get" action = "/search/">
+
+      <input type="text" class="form-control" name = "q" id = "id_q" />
+        <span class="input-group-btn">
+          <input class="btn btn-primary" type = "submit" value = "Submit" />
+        </span>
+    </form>
+
+    <br>
+    <a class="btn btn-success" href='{% url "home" %}'>
+      Back to Home
+    </a>
+  </div>
+</div>

@@ -51,6 +51,7 @@ def create(request):
 def search(request):
 
 	query = request.GET.get('q', '')
+	results = Event.objects.order_by('event_date')
 
 	if query:
 		results = Event.objects.filter( Q(title__icontains = query)|
@@ -71,6 +72,7 @@ def category_filter(request):
 	query = request.GET.get('q', '')
 
 	if query:
+
 		results = Event.objects.filter(Q(category__title__icontains = query)).distinct()
 
 	return render_to_response('search.html', 
