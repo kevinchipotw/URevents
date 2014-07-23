@@ -19,12 +19,15 @@ def home(request):
 	args.update(csrf(request))
 
 	args['events'] = Event.objects.order_by('event_date')
+	args['categories'] = Category.objects.order_by('title')
 
 	return render_to_response("event_index.html", args)
+
 
 def event(request, event_id= 1):
     return render_to_response('event.html',
                               {'event': Event.objects.get(id = event_id) })
+
 
 def create(request):
 	if request.POST: 
@@ -46,6 +49,7 @@ def create(request):
 
 
 def search(request):
+
 	query = request.GET.get('q', '')
 
 	if query:
@@ -56,12 +60,21 @@ def search(request):
 			Q(co_sponsored__title__icontains = query)
 			).distinct()
 
-	return render_to_response('search.html', 
+	return render_to_response('search.html',
 							  {'query': query,
-							   'results': results })
+							   'results': results, 
+							   'categories': Category.objects.order_by('title') })
 	
 
+def category_filter(request):
+	
+	query = request.GET.get('q', '')
 
+	if query:
+		results = Event.objects.filter(Q(category__title__icontains = query)).distinct()
 
+	return render_to_response('search.html', 
+						  {'query': query,
+						   'results': results })
 
 

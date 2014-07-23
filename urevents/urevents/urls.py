@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 	url(r'^event(?P<event_id>\d+)/$','event.views.event', name = 'event'), 
 	url(r'^create/$', 'event.views.create', name = 'create'), 
 	url(r'^search/$', 'event.views.search', name = 'search'),
+	url(r'^category_filter/$', 'event.views.category_filter', name = 'category_filter'),
 
 	url(r'^admin/', include(admin.site.urls)),
 
