@@ -54,9 +54,7 @@ def search(request):
 			Q(location__icontains = query)| Q(body__icontains = query)|
 			Q(author__username__icontains = query )| Q(category__title__icontains = query)|
 			Q(co_sponsored__title__icontains = query)
-			)
-
-
+			).distinct()
 
 	return render_to_response('search.html', 
 							  {'query': query,
