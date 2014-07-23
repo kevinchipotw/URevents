@@ -25,7 +25,7 @@ def home(request):
 
 
 def event(request, event_id= 1):
-    return render_to_response('event.html',
+    return render_to_response('event_detail.html',
                               {'event': Event.objects.get(id = event_id) })
 
 
@@ -70,13 +70,15 @@ def search(request):
 def category_filter(request):
 	
 	query = request.GET.get('q', '')
+	results = []
 
 	if query:
 
 		results = Event.objects.filter(Q(category__title__icontains = query)).distinct()
 
-	return render_to_response('search.html', 
+	return render_to_response('categorize.html', 
 						  {'query': query,
-						   'results': results })
+						   'results': results,
+						   'categories': Category.objects.order_by('title') })
 
 

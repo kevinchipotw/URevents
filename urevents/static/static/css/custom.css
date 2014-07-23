@@ -3,6 +3,11 @@
 }
 
 .input-group .form-control{
-	width: 65%;
+	width: 70%;
 
+}
+
+.page-header {
+
+border-bottom: 0px solid #000000; 
 }

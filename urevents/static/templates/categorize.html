@@ -4,9 +4,8 @@
 
 {% if results %}
 <div class="alert alert-info">
-	<h4>
-		You've searched for "{{ query }}". &nbsp;&nbsp;
-		<a href='{% url "home" %}' class="alert-link">(Cancel Search)</a>
+	<h4>You've selected the category: "{{ query }}".
+		<a href='{% url "home" %}' class="alert-link">(Cancel Selection)</a>
 	</h4>
 </div>
 
@@ -61,4 +60,3 @@
 
 
 {% endblock %}
-
