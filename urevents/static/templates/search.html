@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if results %}
+	<p>You searched for "{{ query }}".</p>
+
+	{% if results %}
+		<p>Search results:</p>
+		<ul>
+			{% for event in results %}
+				<li><a href="/event{{ event.id }}/">{{ event.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endif %}
+			
+
+{% if query and not results %}
+	<p>No results found with the search of "{{ query }}".</p>
+{% else %}
+	<p>Type a search query into the box above, and press "Submit" to search.</p>
+{% endif %}
+
+
+{% endblock %}
+
