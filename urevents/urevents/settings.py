@@ -96,3 +96,8 @@ if DEBUG:
         os.path.join((BASE_DIR), "static", "static"), 
     )
 
+
+
+
+
+

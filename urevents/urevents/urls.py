@@ -7,13 +7,20 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('', 
+	url(r'^admin/', include(admin.site.urls)),
+
 	url(r'^$', 'event.views.home', name = 'home'),
 	url(r'^event(?P<event_id>\d+)/$','event.views.event', name = 'event'), 
-	url(r'^create/$', 'event.views.create', name = 'create'), 
-	url(r'^search/$', 'event.views.search', name = 'search'),
-	url(r'^category_filter/$', 'event.views.category_filter', name = 'category_filter'),
+	url(r'^event/create/$', 'event.views.create', name = 'create'), 
+	url(r'^event/search/$', 'event.views.search', name = 'search'),
+	url(r'^event/category_filter/$', 'event.views.category_filter', name = 'category_filter'),
 
-	url(r'^admin/', include(admin.site.urls)),
+
+	#user authentication
+    
+  url(r'^accounts/auth/$', 'urevents.views.auth_view'), 
+  url(r'^accounts/logout/$', 'urevents.views.logout', name = 'logout'), 
+
 
 
 )

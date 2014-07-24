@@ -6,7 +6,7 @@
           <ul class="list-unstyled">
             {% for category in categories %}
               <li>
-                <form method = "get" action = "/category_filter/">
+                <form method = "get" action = '{% url "category_filter" %}'>
                   <input class="btn btn-info btn-block" type = "submit" value = "{{ category.title }}" 
                   name = "q" id = "id_q"/>
                 </form>                

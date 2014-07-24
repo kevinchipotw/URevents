@@ -8,25 +8,27 @@ from forms import EventForm
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.db.models import Q, F
+
 from django.contrib.auth.models import User
+from django.contrib import auth
+from django.contrib.auth import authenticate, login
+from django.contrib.formtools.wizard.views import SessionWizardView
 
 # Create your views here.
 
 
 
 def home(request):
-	args = {}
-	args.update(csrf(request))
-
-	args['events'] = Event.objects.order_by('event_date')
-	args['categories'] = Category.objects.order_by('title')
-
-	return render_to_response("event_index.html", args)
+	return render_to_response("event_index.html",
+		{'events': Event.objects.order_by('event_date'),
+		 'categories': Category.objects.order_by('title')},
+			context_instance = RequestContext(request) )
 
 
 def event(request, event_id= 1):
     return render_to_response('event_detail.html',
-                              {'event': Event.objects.get(id = event_id) })
+                              {'event': Event.objects.get(id = event_id)},
+                              context_instance = RequestContext(request) )
 
 
 def create(request):
@@ -40,12 +42,8 @@ def create(request):
 	else:
 		form = EventForm()
 
-	args = {}
-	args.update(csrf(request))
-
-	args['form'] = form
-
-	return render_to_response('create_event.html', args)
+	return render_to_response('create_event.html', {'form': form},
+														context_instance = RequestContext(request))
 
 
 def search(request):
@@ -64,7 +62,8 @@ def search(request):
 	return render_to_response('search.html',
 							  {'query': query,
 							   'results': results, 
-							   'categories': Category.objects.order_by('title') })
+							   'categories': Category.objects.order_by('title')},
+							   context_instance = RequestContext(request))
 	
 
 def category_filter(request):
@@ -79,6 +78,6 @@ def category_filter(request):
 	return render_to_response('categorize.html', 
 						  {'query': query,
 						   'results': results,
-						   'categories': Category.objects.order_by('title') })
-
+						   'categories': Category.objects.order_by('title')},
+						   context_instance = RequestContext(request))
 
