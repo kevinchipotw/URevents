@@ -4,9 +4,6 @@
 
 <h3>You are not logged in.</h3>
 
-    {% if form.errors %}
-      <p class = "error"> Invalid password</p>
-    {% endif %}
     
     <form action= "/accounts/auth/" method= "post">
     	{%csrf_token%}
@@ -16,7 +13,12 @@
         <label for = "password"> Password:</label>
         <input type = "password" name = "password" value = "" id = "password">
         <input type = "submit" value = "login" />
-
     </form>
+    {% if messages %}
+            {% for message in messages %}
+              <p{% if message.tags == "success" %} class="alert alert-danger"{% endif %}>{{ message }}</p>
+            {% endfor %}  
+      {% endif %}
+
 
 </div>

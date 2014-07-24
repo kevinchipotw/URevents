@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponseRedirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.formtools.wizard.views import SessionWizardView
@@ -20,7 +20,10 @@ def auth_view(request):
 	        return HttpResponseRedirect(reverse('event.views.home'))
 
     else:
-        return render_to_response('login_invalid.html', context_instance = RequestContext(request))
+        messages.success(request, 'Login information is invalid. Please try again.')
+
+        return HttpResponseRedirect(reverse('event.views.home'))
+
 
 
 def logout(request):
