@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 
 
+
 def auth_view(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -29,4 +30,5 @@ def auth_view(request):
 def logout(request):
 	auth.logout(request)
 	return HttpResponseRedirect(reverse('event.views.home'))
+
 

@@ -1,0 +1,4 @@
+#!/bin/bash
+export PYTHONPATH=$PYTHONPATH:/var/www/djangoapp:/var/www/djangoapp/app
+export DJANGO_SETTINGS_MODULE=app.settings.settings
+django-admin $1
