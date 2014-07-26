@@ -10,7 +10,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h4 class="panel-title">
-          {{ event.title }}
+          {{ event.title|truncatewords:"10" }}
           <br>
           On: {{ event.event_date }} &nbsp;&nbsp; By {{ event.author }}
           <span style="float:right;">Posted: {{ event.pub_date }}</span>

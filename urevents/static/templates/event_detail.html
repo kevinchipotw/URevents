@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<div class = 'well'>
 <h1>{{ event.title }}</h1>
 
 <h3>Posted on: {{ event.pub_date }}</h3>
@@ -57,7 +58,7 @@
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
     </script>
-
+</div>
 {% endblock %}
 
 

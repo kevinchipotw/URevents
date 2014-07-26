@@ -4,7 +4,6 @@ from django.contrib import auth, messages
 from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.formtools.wizard.views import SessionWizardView
-
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 

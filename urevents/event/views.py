@@ -37,7 +37,6 @@ def create(request):
 		form = EventForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
-
 			return HttpResponseRedirect(reverse('event.views.home'))
 
 	else:
@@ -81,4 +80,13 @@ def category_filter(request):
 						   'results': results,
 						   'categories': Category.objects.order_by('title')},
 						   context_instance = RequestContext(request))
+
+def aboutus(request):
+	return render_to_response('about_us.html',
+		context_instance = RequestContext(request))
+
+def contactus(request):
+	return render_to_response('contact_us.html',
+		context_instance = RequestContext(request))
+
 

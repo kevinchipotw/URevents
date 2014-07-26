@@ -14,7 +14,8 @@ urlpatterns = patterns('',
 	url(r'^event/create/$', 'event.views.create', name = 'create'), 
 	url(r'^event/search/$', 'event.views.search', name = 'search'),
 	url(r'^event/category_filter/$', 'event.views.category_filter', name = 'category_filter'),
-
+	url(r'^aboutus$', 'event.views.aboutus', name = 'aboutus'),
+	url(r'^contactus$', 'event.views.contactus', name = 'contactus'),
 
 	#user authentication
     

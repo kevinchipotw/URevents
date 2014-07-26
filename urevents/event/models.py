@@ -31,7 +31,7 @@ class Event(models.Model):
 	title = models.CharField(max_length = 200)
 	author = models.ForeignKey(User, default = User)
 	pub_date = models.DateTimeField(default = datetime.datetime.now)
-	event_date = models.DateTimeField('Event Date')
+	event_date = models.DateTimeField(default = datetime.datetime.now)
 	
 	category = models.ManyToManyField(Category)
 	co_sponsored = models.ManyToManyField(Organization)
