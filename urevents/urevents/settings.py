@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -37,9 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'social_auth',
     'event',
-    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,7 +48,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_auth.middleware.SocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'urevents.urls'
@@ -92,57 +90,15 @@ TEMPLATE_DIRS = (
 )
 
 if DEBUG:
-    MEDIA_URL = '/media/'
+    MEDIA_URL = '/static/media/'
     STATIC_ROOT = os.path.join((BASE_DIR), "static", "static-only") 
     MEDIA_ROOT = os.path.join((BASE_DIR), "static", "media")
     STATICFILES_DIRS = (
         os.path.join((BASE_DIR), "static", "static"), 
     )
 
-AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.facebook.FacebookBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-
-    'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
-    'social_auth.context_processors.social_auth_by_type_backends',
-    'social_auth.context_processors.social_auth_login_redirect',
-    'django.contrib.auth.context_processors.auth',
-)
 
 
-FACEBOOK_APP_ID= '1510442119171528'
-FACEBOOK_API_SECRET= '22fdbd8671f4c8b9b3d0c61990333929'
-
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/'
-LOGIN_ERROR_URL    = '/'
-
-
-
-SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-
-SOCIAL_AUTH_UID_LENGTH = 16
-SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
-SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
-SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
-SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
-SOCIAL_AUTH_UUID_LENGTH = 16
-
-SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
-
-SOCIAL_AUTH_SANITIZE_REDIRECTS = False
-
-SOCIAL_AUTH_FORCE_POST_DISCONNECT = True
-
-
-SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook')
-
-SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 
 
 

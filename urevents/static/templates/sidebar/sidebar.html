@@ -1,33 +1,17 @@
 
-<div class="well">
+{% include 'facebook_login.html' %}
 
-
-
-<a href="{% url 'socialauth_begin' 'facebook' %}">Login with facebook</a>
-
-
-
-<a href='{% url "logout" %}'>
-	Disconnect fb</a>
-
-
-
-
-<h2>
 {% if not user.is_authenticated %}
-	Not logged in.
+	{% include 'login_form.html' %}
 {% endif %}
 
 
 {% if user.is_authenticated %}
-	Logged in
+	{% include 'logout_button.html' %}
 {% endif %}
-</h2>
-</div>
+
  
 {% include 'sidebar_search.html' %}
-
-
 
 <div class="well">
     <h4>Make a post</h4>

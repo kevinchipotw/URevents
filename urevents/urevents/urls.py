@@ -14,8 +14,13 @@ urlpatterns = patterns('',
 	url(r'^event/create/$', 'event.views.create', name = 'create'), 
 	url(r'^event/search/$', 'event.views.search', name = 'search'),
 	url(r'^event/category_filter/$', 'event.views.category_filter', name = 'category_filter'),
-	url(r'', include('social_auth.urls')),
 
-	url(r'^logout/$', 'event.views.logout', name = 'logout'),
+
+	#user authentication
+    
+  url(r'^accounts/auth/$', 'urevents.views.auth_view'), 
+  url(r'^accounts/logout/$', 'urevents.views.logout', name = 'logout'), 
+
+
 
 )
