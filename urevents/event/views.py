@@ -19,8 +19,6 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 
 
 def home(request):
-
-
 	return render_to_response("event_index.html",
 		{'events': Event.objects.order_by('event_date'),
 		 'categories': Category.objects.order_by('title')},

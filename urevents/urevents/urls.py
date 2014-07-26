@@ -19,7 +19,6 @@ urlpatterns = patterns('',
 	#user authentication
     
   url(r'^accounts/auth/$', 'urevents.views.auth_view'), 
-
   url(r'^accounts/logout/$', 'urevents.views.logout', name = 'logout'), 
 
 
