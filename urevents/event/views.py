@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import render, render_to_response, RequestContext, HttpResponseRedirect
+from django.shortcuts import redirect, render, render_to_response, RequestContext, HttpResponseRedirect
 from django.utils import timezone
 from .models import Event, Category, Organization
 from forms import EventForm
@@ -13,10 +13,13 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.formtools.wizard.views import SessionWizardView
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+def logout(request):
+	auth.logout(request)
+	return HttpResponseRedirect(reverse('event.views.home'))
 
 def home(request):
 	return render_to_response("event_index.html",
