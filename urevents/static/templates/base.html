@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    
     <!-- Navbar -->
     {% include 'navbar.html' %}
 
@@ -72,6 +73,10 @@
         </footer>
 
     </div>
+
+    FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+    });
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.0 -->
@@ -80,6 +85,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="/static/js/bootstrap.js"></script>
 
+    <script src="/static/js/facebook.js"></script>
 
 </body>
 

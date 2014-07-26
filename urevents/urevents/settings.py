@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'event',
+    'social_auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -97,8 +98,12 @@ if DEBUG:
         os.path.join((BASE_DIR), "static", "static"), 
     )
 
+FACEBOOK_APP_ID='1510442119171528'
+FACEBOOK_API_SECRET='22fdbd8671f4c8b9b3d0c61990333929'
 
-
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+)
 
 
 
