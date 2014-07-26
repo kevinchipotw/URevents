@@ -27,7 +27,8 @@ def home(request):
 
 def event(request, event_id= 1):
     return render_to_response('event_detail.html',
-                              {'event': Event.objects.get(id = event_id)},
+                              {'event': Event.objects.get(id = event_id),
+                              'categories': Category.objects.order_by('title')},
                               context_instance = RequestContext(request) )
 
 
