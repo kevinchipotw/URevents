@@ -42,7 +42,11 @@ def create(request):
 	else:
 		form = EventForm()
 
-	return render_to_response('create_event.html', {'form': form},
+	return render_to_response('create_event.html', 
+														{'form': form,
+														'organizations': Organization.objects.order_by('title'),
+														'categories': Category.objects.order_by('title'),
+														'users': User.objects.order_by('username')},
 														context_instance = RequestContext(request))
 
 

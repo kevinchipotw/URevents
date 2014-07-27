@@ -14,6 +14,10 @@ border-bottom: 0px solid #000000;
 
 .jumbotron {
 
-background-color: rgb(29, 184, 0);
+background-color: rgb(235, 217, 13);
 }
 
+.container{
+	margin-right: 20px;
+	margin-left: 20px;
+}

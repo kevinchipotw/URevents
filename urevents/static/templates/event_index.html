@@ -10,10 +10,11 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h4 class="panel-title">
-          {{ event.title|truncatewords:"10" }}
+          <strong><big>{{ event.title|truncatewords:"10" }}</big></strong>
           <br>
-          On: {{ event.event_date }} &nbsp;&nbsp; By {{ event.author }}
-          <span style="float:right;">Posted: {{ event.pub_date }}</span>
+          <big>Event Date: </big>
+          {{ event.event_date }} 
+          <span style="float:right;">Posted: {{ event.pub_date }} &nbsp; by {{ event.author }}</span>
         </h4>
       </div>
     </div>
@@ -22,22 +23,25 @@
   <div class="panel panel-default">
     <div id="collapse{{ event.id }}" class="panel-collapse collapse">
       <div class="panel-body">
-        <p>Category: 
+        <p><strong><big>Category: </big></strong>
           {% for category in event.category.all %}
-            {{ category }} 
+            {{ category }}{% if not forloop.last %},{% else %} {% endif %} 
+
           {% endfor %}
         </p>
 
-        <p>Location: {{ event.location }}</p>
+        <p><strong><big>Location: </big></strong>
+          {{ event.location }}</p>
 
-        <p>Co-Sponsored by: 
+        <p><strong><big>Co-sponsored by: </big></strong>
           {% for co_sponsored in event.co_sponsored.all %}
-            {{ co_sponsored }}   
+            {{ co_sponsored }}{% if not forloop.last %},{% else %} {% endif %}   
           {% endfor %}
         </p>
 
-        <p>{{ event.body|truncatewords:"50" }}</p>
-        <a class="btn btn-primary" href="/event{{ event.id }}/#disqus_thread">Read More &raquo;</a>
+        <p><strong><big>Description: </big></strong>
+          {{ event.body|truncatewords:"50" }}</p>
+        <a class="btn btn-primary" href="/event{{ event.id }}/">Read More &raquo;</a>
       </div>
     </div>
   </div>
@@ -46,4 +50,15 @@
 {% endfor %}
 
 {% endblock %}
+
+{% block sidebar %}
+
+{% include 'sidebar.html' %}
+
+{% endblock %}
+
+
+
+
+
 

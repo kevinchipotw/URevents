@@ -4,29 +4,32 @@
 {% block content %}
 
 <div class = 'well'>
-<h1>{{ event.title }}</h1>
 
-<h3>Posted on: {{ event.pub_date }}</h3>
 
-<h2>Event date: {{ event.event_date }}</h2>
+<h3 class="title">
+    <strong><big>{{ event.title }}</big></strong>     
+    <span style="float:right;"><small>Posted on: {{ event.pub_date }}</small></span>
+</h3>
 
-<p>Category: 
+
+<h3>Event date: {{ event.event_date }}</h3>
+
+<p><strong><big>Category: </big></strong> 
 	{% for category in event.category.all %}
 		{{ category }}  
 	{% endfor %}
 </p>
 
-<p>Location: {{ event.location }}</p>
+<p><strong><big>Location: </big></strong>{{ event.location }}</p>
 
-<p>Co-Sponsored by: 
+<p><strong><big>Co-Sponsored by: </big></strong>
 	{% for co_sponsored in event.co_sponsored.all %}
 		{{ co_sponsored }}  
 	{% endfor %}
 </p>
 
-<hr>
 
-<p>{{ event.body }}</p>
+<p><strong><big>Description: </big></strong>{{ event.body }}</p>
 
 <hr>
 
@@ -59,6 +62,12 @@
     }());
     </script>
 </div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% include 'sidebar.html' %}
+
 {% endblock %}
 
 

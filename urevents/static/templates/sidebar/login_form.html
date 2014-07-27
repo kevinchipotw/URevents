@@ -2,23 +2,35 @@
 
 <div class="well">
 
-<h3>You are not logged in.</h3>
+<h4>You are not logged in.</h4>
 
-    
-    <form action= "/accounts/auth/" method= "post">
-    	{%csrf_token%}
 
-        <label for = "username">User name:</label>
-        <input type = "text" name= "username" value= "" id= "username">
-        <label for = "password"> Password:</label>
-        <input type = "password" name = "password" value = "" id = "password">
-        <input type = "submit" value = "login" />
-    </form>
-    {% if messages %}
-            {% for message in messages %}
-              <p{% if message.tags == "success" %} class="alert alert-danger"{% endif %}>{{ message }}</p>
-            {% endfor %}  
-      {% endif %}
+<form role="form" action= "/accounts/auth/" method= "post">
+  {%csrf_token%}
+  <div class="form-group">
+    <label for = "username">Username:</label>
+    <input type = "text" class="form-control" name= "username" value= "" id= "username">
+  </div>
+
+  <div class="form-group">
+    <label for = "password"> Password:</label>
+    <input type = "password" class="form-control" name = "password" value = "" id = "password">
+  </div>
+
+  <button type="submit" value = "login" class="btn btn-danger">Submit</button>
+</form>
+
+{% if messages %}
+  <br>
+  {% for message in messages %}
+
+  <p{% if message.tags == "success" %} class="alert alert-danger"{% endif %}>{{ message }}</p>
+  {% endfor %}  
+{% endif %}
 
 
 </div>
+
+
+
+

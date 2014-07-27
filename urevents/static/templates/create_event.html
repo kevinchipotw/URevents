@@ -1,18 +1,93 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="well">
+<h2>Please complete the form:</h2>
 
-<form action = '{% url "create" %}' method = "post" enctype = "multipart/form-date"> {% csrf_token %}
-	<ul>
-		{{ form.as_p }}
-	</ul> 
+<form action = '{% url "create" %}' method = "post" enctype = "multipart/form-date" role="form" class="form-horizontal"> {% csrf_token %}
+
+		
+  {{ form.non_field_errors }}
+    
+  <div class="fieldWrapper", "form-group">
+    {{ form.title.errors }}
+    
+    <label for="id_title">Title:</label>
+    <input id="id_title" class="form-control" maxlength="200" name="title" type="text">
+    <br>
+
+    {{ form.author.errors }}
+    <label for="id_author" >Author:</label>
+    <select id = "id_author" name = "author" class="form-control">
+      {% for user in users %} 
+      <option value = "{{ user.id }}">{{ user.username }}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+    {{ form.pub_date.errors }}
+    <label for="id_pub_date">Pub date:</label>
+    <input id="id_pub_date" class="form-control" name="pub_date" type="text" value="2014-07-27 14:51:21">
+    <input id="initial-id_pub_date" name="initial-pub_date" type="hidden" value="2014-07-27 14:51:21.054395">
+    <br>
 
 
-<input type = 'submit' class = 'btn btn-primary btn-block' value = 'Create Event!'>
+    {{ form.event_date.errors }}
+    <label for="id_event_date" >Event Date:</label>
+    <input id="id_event_date" class="form-control" name="event_date" type="text" value="2014-07-27 14:51:21">
+    <input id="initial-id_event_date" name="initial-event_date" type="hidden" value="2014-07-27 14:51:21.054846">
+    <br>
+
+
+    {{ form.category.errors }}
+    <label for="id_category">Category:</label>
+    <select multiple = "multiple" class="form-control" id = "id_category" name = "category">
+      {% for category in categories %} 
+        <option value = "{{ category.id }}">{{ category.title }}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+    {{ form.co_sponsored.errors }}
+    <label for="id_co_sponsored">Co-sponsored:</label>
+
+    <select multiple = "multiple" class="form-control" id = "id_co_sponsored" name = "co_sponsored">
+      {% for organization in organizations %} 
+      <option value = "{{ organization.id }}">{{ organization.title }}</option>
+      {% endfor %}
+    </select>
+    <br>
+
+
+    {{ form.location.errors }}
+    <label for="id_location" class="col-sm-1 control-label">Location:</label>
+    <textarea cols="40" class="form-control" id="id_location" name="location" rows="2"></textarea>
+    <br>
+
+    {{ form.body.errors }}
+    <label for="id_body"class="col-sm-1 control-label">Body:</label>
+    <textarea cols="40" class="form-control" id="id_body" name="body" rows="10"></textarea>
+    <br>
+
+  </div>
+
+  <br>
+
+	<input type = 'submit' class = 'btn btn-primary btn-block' value = 'Create Event!'>
 </form>
 
+</div>
 
 {% endblock %}
+
+
+
+{% block sidebar %}
+
+{% include 'sidebar.html' %}
+
+{% endblock %}
+
 
 
 

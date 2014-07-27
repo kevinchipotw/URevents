@@ -39,5 +39,16 @@
 
 {% endblock %}
 
+{% block sidebar %}
 
+<a class="btn btn-success btn-block" href='{% url "home" %}'>
+  Back to Home
+</a>
+<br>
+
+{% include 'sidebar_login.html' %}
+
+{% include 'poll_weekly.html' %}
+
+{% endblock %}
 

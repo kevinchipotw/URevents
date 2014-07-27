@@ -6,7 +6,7 @@ import datetime
 # Create your models here.
 
 class Category(models.Model):
-	title = models.CharField(max_length = 250)
+	title = models.CharField(max_length = 100)
 	description = models.TextField()
 
 	class Meta:
@@ -17,7 +17,7 @@ class Category(models.Model):
 		return self.title
 
 class Organization(models.Model):
-	title = models.CharField(max_length = 250)
+	title = models.CharField(max_length = 200)
 	description = models.TextField()
 
 	class Meta:
@@ -26,13 +26,20 @@ class Organization(models.Model):
 	def __unicode__(self):
 		return self.title
 
+'''class User(models.Model):
+	username = models.CharField(max_length = 100)
+
+	class Meta:
+		ordering = ['title']
+
+	def __unicode__(self):
+		return self.title'''
 
 class Event(models.Model):
 	title = models.CharField(max_length = 200)
 	author = models.ForeignKey(User, default = User)
 	pub_date = models.DateTimeField(default = datetime.datetime.now)
 	event_date = models.DateTimeField(default = datetime.datetime.now)
-	
 	category = models.ManyToManyField(Category)
 	co_sponsored = models.ManyToManyField(Organization)
 	location = models.TextField()
