@@ -50,8 +50,23 @@ def create(request):
 														context_instance = RequestContext(request))
 
 
-def search(request):
+def edit(request, id=None, template_name='edit_event.html', event_id = 1):
 
+    event = Event.objects.get(id = event_id)
+    if event.author != request.user:
+    	messages.info(request, 'You need to be the author to edit the post.')
+    	return HttpResponseRedirect(reverse('event.views.home'))
+
+
+
+    form = EventForm(instance=event)
+
+    return render_to_response(template_name, {
+        'form': form,
+    }, context_instance=RequestContext(request))
+
+
+def search(request):
 	query = request.GET.get('q', '')
 	results = Event.objects.order_by('event_date')
 
@@ -71,7 +86,6 @@ def search(request):
 	
 
 def category_filter(request):
-	
 	query = request.GET.get('q', '')
 	results = []
 
@@ -92,5 +106,7 @@ def aboutus(request):
 def contactus(request):
 	return render_to_response('contact_us.html',
 		context_instance = RequestContext(request))
+
+
 
 

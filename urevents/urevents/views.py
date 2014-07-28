@@ -19,7 +19,7 @@ def auth_view(request):
 	        return HttpResponseRedirect(reverse('event.views.home'))
 
     else:
-        messages.success(request, 'Login information is invalid. Please try again.')
+        messages.error(request, 'Login information is invalid. Please try again.')
 
         return HttpResponseRedirect(reverse('event.views.home'))
 

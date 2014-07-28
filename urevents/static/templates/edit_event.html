@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="well">
+<h2>Please complete the form:</h2>
+
+<form action = '{% url "create" %}' method = "post" enctype = "multipart/form-date" role="form" class="form-horizontal"> {% csrf_token %}
+
+    
+  <div class="fieldWrapper", "form-group">
+  {{ form.as_p }}
+  </div>
+
+  <br>
+
+	<input type = 'submit' class = 'btn btn-primary btn-block' value = 'Create Event!'>
+</form>
+
+</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% include 'sidebar.html' %}
+
+{% endblock %}
+

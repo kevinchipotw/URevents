@@ -23,8 +23,11 @@
 {% if messages %}
   <br>
   {% for message in messages %}
-
-  <p{% if message.tags == "success" %} class="alert alert-danger"{% endif %}>{{ message }}</p>
+  {% if message.tags == "error" %} 
+    <p class="alert alert-danger">
+  {{ message }}
+  </p>
+  {% endif %}
   {% endfor %}  
 {% endif %}
 

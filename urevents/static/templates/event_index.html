@@ -3,6 +3,18 @@
 
 {% block content %}
 
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == "info" %} 
+      <p class="alert alert-danger">
+       {{ message }}
+     </p>
+   {% endif %}
+  {% endfor %}  
+{% endif %}
+
+
+
 {% for event in events %}
 <div class="panel-group" id="accordion">
   
@@ -11,10 +23,13 @@
       <div class="panel-heading">
         <h4 class="panel-title">
           <strong><big>{{ event.title|truncatewords:"10" }}</big></strong>
+          <span style="float:right;">
+            <div class="fb-like" data-href="http://urevents.info/event{{ event.id }}/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+          </span>
+
           <br>
           <big>Event Date: </big>
           {{ event.event_date }} 
-          <span style="float:right;">Posted: {{ event.pub_date }} &nbsp; by {{ event.author }}</span>
         </h4>
       </div>
     </div>
@@ -23,10 +38,12 @@
   <div class="panel panel-default">
     <div id="collapse{{ event.id }}" class="panel-collapse collapse">
       <div class="panel-body">
+        <p><strong><big>Posted on: </big></strong> {{ event.pub_date }} &nbsp; 
+          <strong><big>By: </big></strong>{{ event.author }}
+        </p>  
         <p><strong><big>Category: </big></strong>
           {% for category in event.category.all %}
             {{ category }}{% if not forloop.last %},{% else %} {% endif %} 
-
           {% endfor %}
         </p>
 
@@ -42,6 +59,9 @@
         <p><strong><big>Description: </big></strong>
           {{ event.body|truncatewords:"50" }}</p>
         <a class="btn btn-primary" href="/event{{ event.id }}/">Read More &raquo;</a>
+        
+        <a class="btn btn-warning" href="/edit/event{{ event.id }}/">Edit</a>
+
       </div>
     </div>
   </div>

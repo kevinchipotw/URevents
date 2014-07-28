@@ -10,7 +10,7 @@
   {{ form.non_field_errors }}
     
   <div class="fieldWrapper", "form-group">
-    {{ form.title.errors }}
+    {{ form.event.errors }}
     
     <label for="id_title">Title:</label>
     <input id="id_title" class="form-control" maxlength="200" name="title" type="text">
@@ -29,14 +29,14 @@
     <label for="id_pub_date">Pub date:</label>
     <input id="id_pub_date" class="form-control" name="pub_date" type="text" value="2014-07-27 14:51:21">
     <input id="initial-id_pub_date" name="initial-pub_date" type="hidden" value="2014-07-27 14:51:21.054395">
-    <br>
+    <span class="help-block">Ex: 2014-07-27 14:51:21</span>
 
 
     {{ form.event_date.errors }}
     <label for="id_event_date" >Event Date:</label>
     <input id="id_event_date" class="form-control" name="event_date" type="text" value="2014-07-27 14:51:21">
     <input id="initial-id_event_date" name="initial-event_date" type="hidden" value="2014-07-27 14:51:21.054846">
-    <br>
+    <span class="help-block">Ex: 2014-07-27 14:51:21</span>
 
 
     {{ form.category.errors }}
@@ -46,17 +46,17 @@
         <option value = "{{ category.id }}">{{ category.title }}</option>
       {% endfor %}
     </select>
-    <br>
+    <span class="help-block">Hold down 'ctrl' for Windows or 'command' for Mac to select multiple.</span>
+
 
     {{ form.co_sponsored.errors }}
     <label for="id_co_sponsored">Co-sponsored:</label>
-
     <select multiple = "multiple" class="form-control" id = "id_co_sponsored" name = "co_sponsored">
       {% for organization in organizations %} 
       <option value = "{{ organization.id }}">{{ organization.title }}</option>
       {% endfor %}
     </select>
-    <br>
+    <span class="help-block">Hold down 'ctrl' for Windows or 'command' for Mac to select multiple.</span>
 
 
     {{ form.location.errors }}
