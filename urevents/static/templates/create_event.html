@@ -1,3 +1,5 @@
+
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -10,42 +12,37 @@
   {{ form.non_field_errors }}
     
   <div class="fieldWrapper", "form-group">
-    {{ form.event.errors }}
     
+    {{ form.title.errors }}
     <label for="id_title">Title:</label>
     <input id="id_title" class="form-control" maxlength="200" name="title" type="text">
     <br>
 
-    {{ form.author.errors }}
+    <!--{{ form.author.errors }}
     <label for="id_author" >Author:</label>
     <select id = "id_author" name = "author" class="form-control">
       {% for user in users %} 
       <option value = "{{ user.id }}">{{ user.username }}</option>
       {% endfor %}
     </select>
-    <br>
-
-    {{ form.pub_date.errors }}
-    <label for="id_pub_date">Pub date:</label>
-    <input id="id_pub_date" class="form-control" name="pub_date" type="text" value="2014-07-27 14:51:21">
-    <input id="initial-id_pub_date" name="initial-pub_date" type="hidden" value="2014-07-27 14:51:21.054395">
-    <span class="help-block">Ex: 2014-07-27 14:51:21</span>
-
+    <br>-->
 
     {{ form.event_date.errors }}
     <label for="id_event_date" >Event Date:</label>
-    <input id="id_event_date" class="form-control" name="event_date" type="text" value="2014-07-27 14:51:21">
-    <input id="initial-id_event_date" name="initial-event_date" type="hidden" value="2014-07-27 14:51:21.054846">
-    <span class="help-block">Ex: 2014-07-27 14:51:21</span>
+
+    <input id="id_event_date" class="form-control" name="event_date" type="text" value="{{ time2 }}">
+    <span class="help-block">Ex: 2014-07-27 03:00</span>
 
 
     {{ form.category.errors }}
     <label for="id_category">Category:</label>
-    <select multiple = "multiple" class="form-control" id = "id_category" name = "category">
+
+    <select multiple = "multiple" id = "id_category" class="form-control" name = "category">
       {% for category in categories %} 
         <option value = "{{ category.id }}">{{ category.title }}</option>
       {% endfor %}
     </select>
+
     <span class="help-block">Hold down 'ctrl' for Windows or 'command' for Mac to select multiple.</span>
 
 
@@ -56,6 +53,7 @@
       <option value = "{{ organization.id }}">{{ organization.title }}</option>
       {% endfor %}
     </select>
+
     <span class="help-block">Hold down 'ctrl' for Windows or 'command' for Mac to select multiple.</span>
 
 

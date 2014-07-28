@@ -8,7 +8,8 @@ from forms import EventForm
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.db.models import Q, F
-
+import datetime
+from datetime import date, timedelta, time
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
@@ -17,8 +18,10 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 # Create your views here.
 
 
-
 def home(request):
+	event = Event.objects.filter(event_date__lte =datetime.datetime.now())
+	event.delete()
+
 	return render_to_response("event_index.html",
 		{'events': Event.objects.order_by('event_date'),
 		 'categories': Category.objects.order_by('title')},
@@ -35,29 +38,41 @@ def event(request, event_id= 1):
 def create(request):
 	if request.POST: 
 		form = EventForm(request.POST, request.FILES)
+
 		if form.is_valid():
-			form.save()
+
+			#form.save()
+			Event = form.save(commit=False)
+			Event.author = request.user
+			Event.pub_date = datetime.datetime.now()
+			Event = Event.save()
+			form.save_m2m()
+
 			return HttpResponseRedirect(reverse('event.views.home'))
 
 	else:
 		form = EventForm()
 
+
+	eighthour_advanced = datetime.datetime.now()+timedelta(hours=8)
+	d = eighthour_advanced.strftime("%Y-%m-%d %H:%M")
+
 	return render_to_response('create_event.html', 
 														{'form': form,
 														'organizations': Organization.objects.order_by('title'),
 														'categories': Category.objects.order_by('title'),
-														'users': User.objects.order_by('username')},
+														'users': User.objects.order_by('username'),
+														'time2': d },
 														context_instance = RequestContext(request))
 
 
+#@login_required
 def edit(request, id=None, template_name='edit_event.html', event_id = 1):
 
     event = Event.objects.get(id = event_id)
     if event.author != request.user:
     	messages.info(request, 'You need to be the author to edit the post.')
     	return HttpResponseRedirect(reverse('event.views.home'))
-
-
 
     form = EventForm(instance=event)
 
