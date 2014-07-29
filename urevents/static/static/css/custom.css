@@ -13,7 +13,8 @@ border-bottom: 0px solid #000000;
 }
 
 .jumbotron {
-
+padding-top: 30px;
+padding-bottom: 20px;
 background-color: rgb(235, 217, 13);
 }
 

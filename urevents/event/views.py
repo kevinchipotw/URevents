@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -21,11 +22,23 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 def home(request):
 	event = Event.objects.filter(event_date__lte =datetime.datetime.now())
 	event.delete()
+	
+	event_list = Event.objects.order_by('event_date')
+	paginator = Paginator(event_list, 5)
 
-	return render_to_response("event_index.html",
-		{'events': Event.objects.order_by('event_date'),
+	page = request.GET.get('page')
+	try:
+		events = paginator.page(page)
+	except PageNotAnInteger:
+		events = paginator.page(1)# If page is not an integer, deliver first page.
+	except EmptyPage:
+		events = paginator.page(paginator.num_pages) # If page is out of range (e.g. 9999), deliver last page of results.
+	
+	return render_to_response('event_index.html', {
+		'events': events,
 		 'categories': Category.objects.order_by('title')},
 			context_instance = RequestContext(request) )
+
 
 
 def event(request, event_id= 1):
@@ -40,8 +53,6 @@ def create(request):
 		form = EventForm(request.POST, request.FILES)
 
 		if form.is_valid():
-
-			#form.save()
 			Event = form.save(commit=False)
 			Event.author = request.user
 			Event.pub_date = datetime.datetime.now()
