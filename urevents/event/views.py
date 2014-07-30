@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponseRedirect
 from django.utils import timezone
 from .models import Event, Category, Organization
-from forms import EventForm
+from forms import EventForm, CategoryForm
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.db.models import Q, F
@@ -15,6 +15,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import FormView
 
 # Create your views here.
 
@@ -22,10 +23,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def home(request):
 	event = Event.objects.filter(event_date__lte =datetime.datetime.now())
 	event.delete()
-	
+
+	form = CategoryForm(request.POST, request.FILES)
+
 	event_list = Event.objects.order_by('event_date')
 	paginator = Paginator(event_list, 5)
-
 	page = request.GET.get('page')
 	try:
 		events = paginator.page(page)
@@ -35,17 +37,20 @@ def home(request):
 		events = paginator.page(paginator.num_pages) # If page is out of range (e.g. 9999), deliver last page of results.
 	
 	return render_to_response('event_index.html', {
+		'form': form,
 		'events': events,
-		 'categories': Category.objects.order_by('title')},
+		 'categories': Category.objects.order_by('title'),
+		 'organizations': Organization.objects.order_by('title')},
 			context_instance = RequestContext(request) )
 
 
 
+
 def event(request, event_id= 1):
-    return render_to_response('event_detail.html',
-                              {'event': Event.objects.get(id = event_id),
-                              'categories': Category.objects.order_by('title')},
-                              context_instance = RequestContext(request) )
+		return render_to_response('event_detail.html',
+															{'event': Event.objects.get(id = event_id),
+															'categories': Category.objects.order_by('title')},
+															context_instance = RequestContext(request) )
 
 
 def create(request):
@@ -80,16 +85,19 @@ def create(request):
 #@login_required
 def edit(request, id=None, template_name='edit_event.html', event_id = 1):
 
-    event = Event.objects.get(id = event_id)
-    if event.author != request.user:
-    	messages.info(request, 'You need to be the author to edit the post.')
-    	return HttpResponseRedirect(reverse('event.views.home'))
+	event = Event.objects.get(id = event_id)
 
-    form = EventForm(instance=event)
+	if event.author != request.user:
+		messages.info(request, 'You need to be the author to edit the post.')
+		return HttpResponseRedirect(reverse('event.views.home'))
 
-    return render_to_response(template_name, {
-        'form': form,
-    }, context_instance=RequestContext(request))
+	form = EventForm(instance=event)
+	event1 = Event.objects.filter(id = event_id)
+	event1.delete()
+
+	return render_to_response(template_name, {
+			'form': form,
+	}, context_instance=RequestContext(request))
 
 
 def search(request):
@@ -105,25 +113,31 @@ def search(request):
 			).distinct()
 
 	return render_to_response('search.html',
-							  {'query': query,
-							   'results': results, 
-							   'categories': Category.objects.order_by('title')},
-							   context_instance = RequestContext(request))
-	
+								{'query': query,
+								 'results': results, 
+								 'categories': Category.objects.order_by('title')},
+								 context_instance = RequestContext(request))
 
-def category_filter(request):
+
+
+
+def search_filter(request):
 	query = request.GET.get('q', '')
 	results = []
 
 	if query:
-
-		results = Event.objects.filter(Q(category__title__icontains = query)).distinct()
+		results = Event.objects.filter(Q(category__title__icontains = query)|
+			Q(author__username__icontains = query)|Q(co_sponsored__title__icontains = query)
+			).distinct()
 
 	return render_to_response('categorize.html', 
-						  {'query': query,
-						   'results': results,
-						   'categories': Category.objects.order_by('title')},
-						   context_instance = RequestContext(request))
+							{'query': query,
+							 'results': results,
+							 'categories': Category.objects.order_by('title')},
+							 context_instance = RequestContext(request))
+
+
+
 
 def aboutus(request):
 	return render_to_response('about_us.html',

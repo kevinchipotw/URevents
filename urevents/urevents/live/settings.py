@@ -97,6 +97,7 @@ if not DEBUG:
     TEMPLATE_DIRS = (
         '/home/kevinjipotw/webapps/urevents_static/templates',
         '/home/kevinjipotw/webapps/urevents_static/templates/sidebar',
+
     )
 
 

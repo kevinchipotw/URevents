@@ -3,6 +3,7 @@
 {% block content %}
 
 {% if results %}
+
 <div class="alert alert-info">
 	<h4>
 		You've searched for "{{ query }}". &nbsp;&nbsp;
@@ -53,13 +54,19 @@
 
 {% endif %}
 
-
 {% if query and not results %}
-	<p>No results found with "{{ query }}".</p>
+
+<div class="alert alert-info">
+	<h4>
+		There's no match for the search: "{{ query }}". &nbsp;&nbsp;
+		<a href='{% url "home" %}' class="alert-link">(Cancel Search)</a>
+	</h4>
+</div>
 
 {% endif %}
 
 {% endblock %}
+
 
 {% block sidebar %}
 

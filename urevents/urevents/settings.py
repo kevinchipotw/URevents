@@ -87,6 +87,7 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join((BASE_DIR), "static", "templates"),
     os.path.join((BASE_DIR), "static", "templates", "sidebar"),
+    os.path.join((BASE_DIR), "static", "templates", "elements"),
 )
 
 if DEBUG:

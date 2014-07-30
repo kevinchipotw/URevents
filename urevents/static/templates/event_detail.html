@@ -8,11 +8,11 @@
 
 <h3 class="title">
     <strong><big>{{ event.title }}</big></strong>     
-    <span style="float:right;"><small>Posted on: {{ event.pub_date|date:"F/d, h:m A" }}</small></span>
+    <span style="float:right;"><small>Posted on: {{ event.pub_date|date:"F d, h:m A" }}</small></span>
 </h3>
 
 
-<h3>Event date: {{ event.event_date|date:"F/d, h:m A" }}</h3>
+<h3>Event date: {{ event.event_date|date:"F d, h:m A" }}</h3>
 
 <p><strong><big>Category: </big></strong> 
 	{% for category in event.category.all %}
